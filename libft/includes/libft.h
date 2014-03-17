@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pferry <pferry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 13:36:50 by pferry            #+#    #+#             */
-/*   Updated: 2014/03/05 17:10:21 by pferry           ###   ########.fr       */
+/*   Updated: 2014/03/17 21:16:23 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 # define BUFF_SIZE 256
 
 # include <string.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include <stdarg.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
 typedef struct		s_list
 {

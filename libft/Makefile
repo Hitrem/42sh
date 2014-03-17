@@ -1,18 +1,24 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pferry <pferry@student.42.fr>              +#+  +:+       +#+         #
+#    By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/11/19 13:43:06 by pferry            #+#    #+#              #
-#    Updated: 2014/02/26 16:19:34 by pferry           ###   ########.fr        #
+#    Created: 2013/11/20 13:50:38 by raudiber          #+#    #+#              #
+#    Updated: 2014/03/17 21:17:51 by raudiber         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
-NAME=libft.a
-FLAGS=-Wall -Wextra -Werror
-SRC=ft_abs.c \
+NAME = libft.a
+
+CFLAGS = -Wall -Wextra -Werror -I$(PATH_INC)
+CC = gcc
+
+PATH_INC = includes/
+PATH_SRC = srcs/
+
+SRC =ft_abs.c \
 	ft_atoi.c \
 	ft_bzero.c \
 	ft_charjoin.c \
@@ -84,22 +90,24 @@ SRC=ft_abs.c \
 	ft_tabdub.c \
 	get_next_line.c \
 
-OBJ=$(SRC:.c=.o)
+OBJS = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
+SRCS = $(addprefix $(PATH_SRC), $(SRC))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@echo "Compiling... "
-	@gcc $(FLAGS) -c $(SRC) -I includes/
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@echo "Done !"
+$(NAME): $(OBJS)
+	@ar rcs $@ $^
+	@ranlib $@
+
+$(PATH_SRC)%.o: $(PATH_SRC)%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "Cleaning..."
-	@rm -Rf $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
-	@rm -Rf $(NAME)
+	rm -f $(NAME)
 
-re:	fclean all
+re: fclean all
+
+.PHONY: clean fclean re
