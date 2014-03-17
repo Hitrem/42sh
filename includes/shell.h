@@ -3,29 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pferry <pferry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:59:53 by pferry            #+#    #+#             */
-/*   Updated: 2014/03/05 17:19:16 by pferry           ###   ########.fr       */
+/*   Updated: 2014/03/17 21:47:02 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <term.h>
 # include <termcap.h>
 # include <termios.h>
-# include <fcntl.h>
 # include <sys/ioctl.h>
-# include <stdio.h>
 # include "/usr/include/termcap.h"
-# include "libft/includes/libft.h"
 
 # define ESCAPE		27
 # define SPACE		32
