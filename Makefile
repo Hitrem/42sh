@@ -1,49 +1,62 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pferry <pferry@student.42.fr>              +#+  +:+       +#+         #
+#    By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/12/30 20:01:16 by pferry            #+#    #+#              #
-#    Updated: 2014/03/05 17:18:37 by pferry           ###   ########.fr        #
+#    Created: 2013/12/01 18:50:57 by raudiber          #+#    #+#              #
+#    Updated: 2014/03/17 21:22:48 by raudiber         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
-NAME=42sh
-CC=gcc
-OBJ=$(SRC:.c=.o)
-CFLAGS=-Wall -Wextra -Werror -I.
-LIB=-Llibft/ -lft -L /usr/lib -ltermcap
-HEADER=shell.h
-SRC=main.c \
-	ft_cd.c \
-	ft_env.c \
-	ft_signal.c \
-	ft_setenv.c \
-	ft_get_info.c \
-	ft_is_spe_char.c \
-	ft_lexer.c \
-	ft_keyboard.c \
-	ft_chardelete.c \
-	ft_linechange.c \
-	search_cmd.c
+NAME = 42sh
+LIBFT = libft.a
+LIBFT_PATH = libft
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror $(HEADERS) -g
+HEADERS = -Iincludes -Ilibft/includes
+
+LDFLAGS = -L$(LIBFT_PATH) -lft
+
+PATH_INC = -Iincludes -Ilibft/includes
+PATH_SRC = ./srcs/
+
+SRC = ft_cd.c \
+		ft_chardele.c \
+		ft_env.c \
+		ft_get_info.c \
+		ft_is_spe_char.c \
+		ft_keyboard.c \
+		ft_lexer.c \
+		ft_linechange.c \
+		ft_setenv.c \
+		ft_signal. c \
+		main.c \
+		search_cmd.c \
+
+SRCS = $(addprefix $(PATH_SRC), $(SRC))
+OBJS = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
-	@echo -n Compiling...
+$(NAME): $(OBJS)
+	$(MAKE) -C $(LIBFT_PATH)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
-$(LIB):
-	@make -C libft/
+$(PATH_SRC)%.o: $(PATH_SRC)%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@make clean -C libft
-	@rm -f $(OBJ)
-	@echo -n Delete
+	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_PATH) clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	rm -f $(LIBFT_PATH)/$(LIBFT)
 
 re: fclean all
+
+.PHONY: clean fclean re
